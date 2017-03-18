@@ -1,6 +1,5 @@
-#
+# https://github.com/rickowski/linux-home-configs
 # ~/.bash_profile
-#
 
 # Source the .bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
