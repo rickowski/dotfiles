@@ -54,9 +54,9 @@ set number
 " F5: Remove all trailing spaces
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " F4:Toggle invisibles
-nnoremap <F4> :set list!
+nnoremap <F4> :set list!<CR>
 " F3: Toggle line numbers
-nnoremap <F3> :set number!
+nnoremap <F3> :set number!<CR>
 
 
 " Formatting options for python
@@ -70,10 +70,11 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " Formatting options for shell scripts
-au BufNewFile,BufRead *.sh
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=87 |
+au BufNewFile,BufRead *.sh,.bashrc
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set textwidth=79 |
+    \ set expandtab |
     \ set autoindent |
 
