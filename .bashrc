@@ -24,7 +24,7 @@ alias cp="cp -i" # confirm before overwriting something
 alias df='df -h' # human-readable sizes
 alias free='free -m' # show sizes in MB
 alias np='nano -w PKGBUILD'
-alias ll="ls -lah"
+alias ll="ls -lahF --group-directories-first"
 
 # Allow the use of aliases with sudo
 alias sudo='sudo '
