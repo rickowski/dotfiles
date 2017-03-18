@@ -1,3 +1,8 @@
+# https://github.com/rickowski/linux-home-configs
+
+# This configuration file originates from the Manjaro Linux distribution.
+# It is modified and tweaked.
+
 if [[ $- != *i* ]] ; then
 	# Shell is non-interactive.  Be done now!
 	return
@@ -15,13 +20,10 @@ shopt -s checkwinsize
 
 shopt -s expand_aliases
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
+alias cp="cp -i" # confirm before overwriting something
+alias df='df -h' # human-readable sizes
+alias free='free -m' # show sizes in MB
 alias np='nano -w PKGBUILD'
-#alias more=less
-# export QT_SELECT=4
-
 alias ll="ls -lah"
 
 # Allow the use of aliases with sudo
@@ -65,6 +67,7 @@ if ${use_color} ; then
 	alias fgrep='fgrep --colour=auto'
 fi
 
+# Dynamically generated ps1 prompt
 PROMPT_COMMAND=create_ps1
 
 create_ps1() {
