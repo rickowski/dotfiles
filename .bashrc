@@ -104,7 +104,7 @@ create_ps1() {
     local cPURPLE='\[\e[38;5;197m\]'
     local cBLUELIGHT='\[\e[38;5;109m\]'
     local cBLUE='\[\e[38;5;69m\]'
-    local cGREEN='\[\e[38;5;47m\]'
+    local cGREEN='\[\e[38;5;40m\]'
 
     # Conditional color
     if [[ ${EUID} == 0 ]]; then
