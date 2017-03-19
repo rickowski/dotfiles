@@ -47,7 +47,7 @@ match_lhs=""
 [[ -f ~/.dir_colors ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
 [[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
 [[ -z ${match_lhs} ]] \
-  && type -P dircolors >/dev/null \
+  && type -P dircolors > /dev/null \
   && match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
@@ -60,7 +60,7 @@ if ${use_color} ; then
       eval $(dircolors -b /etc/DIR_COLORS)
     fi
   fi
-  
+
   alias ls='ls --color=auto'
   alias grep='grep --colour=auto'
   alias egrep='egrep --colour=auto'
@@ -68,62 +68,93 @@ if ${use_color} ; then
 fi
 
 # Dynamically generated ps1 prompt
+# See here for details: https://wiki.archlinux.org/index.php/Bash/Prompt_customization
 PROMPT_COMMAND=create_ps1
 
 create_ps1() {
   local EXIT="$?" #Must be first
   PS1=""
-  
+
   # Change the window title of X terminals
   case ${TERM} in
     xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
-      echo -ne "\033]0;(${USER}) [${PWD/#$HOME/~}]\007"
+      echo -ne "\033]0;[${USER}] [${PWD/#$HOME/~}]\007"
       ;;
     screen*)
-      echo -ne "\033_(${USER}) [${PWD/#$HOME/~}]\033\\"
+      echo -ne "\033_[${USER}] [${PWD/#$HOME/~}]\033\\"
       ;;
   esac
-  
+
   if ${use_color} ; then
-    # Some color codes
+    ### Using the tput method is too slow
+    #local cCLEAR="\[$(tput sgr0)\]"
+    #local cBOLD="\[$(tput bold)\]"
+    #local cGRAY="\[$(tput setaf 239)\]"
+    #local cGRAYLIGHT="\[$(tput setaf 244)\]"
+    #local cRED="\[$(tput setaf 1)\]"
+    #local cPURPLE="\[$(tput setaf 201)\]"
+    #local cBLUELIGHT="\[$(tput setaf 109)\]"
+    #local cBLUE="\[$(tput setaf 69)\]"
+    #local cGREEN="\[$(tput setaf 47)\]"
     local cCLEAR='\[\e[0m\]'
     local cBOLD='\[\e[1m\]'
-    local cGRAY='\[\e[0;30m\]'
+    local cGRAY='\[\e[38;5;239m\]'
+    local cGRAYLIGHT='\[\e[38;5;244m\]'
     local cRED='\[\e[0;31m\]'
-    local cREDBOLD='\[\e[1;31m\]'
-    local cYELLOW='\[\e[0;33m\]'
-    local cBLUELIGHT='\[\e[38;5;111m\]'
+    local cPURPLE='\[\e[38;5;197m\]'
+    local cBLUELIGHT='\[\e[38;5;109m\]'
     local cBLUE='\[\e[38;5;69m\]'
-    
-    ### Set the PS1
+    local cGREEN='\[\e[38;5;47m\]'
+
+    # Conditional color
+    if [[ ${EUID} == 0 ]]; then
+      local cCOND="${cRED}"
+      local cCONDALT="${cPURPLE}"
+    else
+      local cCOND="${cBLUE}"
+      local cCONDALT="${cBLUELIGHT}"
+    fi
+
+    ### Put the PS1 together
     # Exit code
     if [[ ${EXIT} != 0 ]]; then
-      PS1+="${cREDBOLD}[${EXIT}]${cCLEAR} "
+      PS1+="${cBOLD}${cRED}[${EXIT}]${cCLEAR} "
     fi
-    
     # Username
-    if [[ ${EUID} == 0 ]] ; then
-      PS1+="${cBOLD}${cRED}\u${cCLEAR} "
-    else
-      PS1+="${cBOLD}${cBLUELIGHT}\u${cCLEAR} "
-    fi
-    
+    PS1+="${cGRAY}[${cCOND}\u${cGRAY}]"
+    # @-sign
+    PS1+="${cGRAYLIGHT}@"
+    # Hostname
+    PS1+="${cGRAY}[${cCOND}\h${cGRAY}] "
     # Folder
-    PS1+="${cGRAY}[${cCLEAR}${cBLUE}\w${cCLEAR}${cGRAY}]${cCLEAR} "
-    
-    # Last character ($/#)
-    if [[ ${EUID} == 0 ]] ; then
-      PS1+="${cRED}\\$ ${cCLEAR}"
-    else
-      PS1+="${cBLUELIGHT}\\$ ${cCLEAR}"
+    PS1+="${cGRAY}[${cCONDALT}\w${cGRAY}] "
+    # Git
+    # Get name of git branch
+    BRANCHNAME="$(git branch 2> /dev/null | grep '^*' | awk '{print $2}')"
+    if [[ ! -z ${BRANCHNAME} ]]; then # If branch name available
+      # Check if changes are made and adjust color accordingly
+      if LC_ALL=C git status | grep "nothing to commit" > /dev/null 2>&1 ; then
+        local cGIT="${cGREEN}"
+      else
+        local cGIT="${cRED}"
+      fi
+      PS1+="${cGIT}(${BRANCHNAME}) "
     fi
+    # Last character ($/#)
+    PS1+="${cCOND}\\$ ${cCLEAR}"
     ### Finished setting PS1
   else
     # If colors are not available
     if [[ ${EXIT} != 0 ]]; then
       PS1+="[${EXIT}] "
     fi
-    PS1+="\u [\w] \\$ "
+
+    BRANCHNAME="$(git branch 2> /dev/null | grep '^*' | awk '{print $2}')"
+    if [[ ! -z ${BRANCHNAME} ]]; then # If branch name available
+      PS1+="[\u]@[\h] [\w] (${BRANCHNAME}) \\$ "
+    else
+      PS1+="[\u]@[\h] [\w] \\$ "
+    fi
   fi
 }
 
