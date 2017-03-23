@@ -42,21 +42,27 @@ filetype plugin indent on    " required
 let g:ycm_autoclose_preview_window_after_completion=1
 
 
-""" Custom options
+""" Visibility options
 " Make invisible characters visible
 set list
 set listchars=tab:→\ ,trail:+,space:·
 " Display line numbers
 set number
+" Use relative line numbers for better navigation
+set relativenumber
+" Highlight the current line
+set cursorline
 
 
 """ Key mappings
-" F5: Remove all trailing spaces
+" F4: Remove all trailing spaces
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-" F4:Toggle invisibles
-nnoremap <F4> :set list!<CR>
-" F3: Toggle line numbers
-nnoremap <F3> :set number!<CR>
+" F8:Toggle invisibles
+nnoremap <F8> :set list!<CR>
+" F9: Toggle relative line numbers
+nnoremap <F9> :set relativenumber!<CR>
+" F10: Toggle line numbers
+nnoremap <F10> :set number!<CR>
 
 
 " Formatting options for python
