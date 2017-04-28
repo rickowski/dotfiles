@@ -26,6 +26,9 @@ alias free='free -m' # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias ll="ls -lahF --group-directories-first"
 
+# Force tmux to use 256 colors
+alias tmux="tmux -2"
+
 # Allow the use of aliases with sudo
 alias sudo='sudo '
 
