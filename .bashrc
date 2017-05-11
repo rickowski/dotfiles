@@ -18,16 +18,23 @@ complete -cf sudo
 # http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
 shopt -s checkwinsize
 
+shopt -s autocd
+
 shopt -s expand_aliases
 
-alias cp="cp -i" # confirm before overwriting something
-alias df='df -h' # human-readable sizes
-alias free='free -m' # show sizes in MB
+alias cp='cp -aiv' # a = archive mode, i = interactive (confirm before overwriting something), v = verbose
+alias df='df -h' # h = human-readable sizes
+alias free='free -m' # m = show sizes in MB
+alias tgz='tar -pczf' # p = preserve permissions, c = create archive, z = gzip , f = file=...
 alias np='nano -w PKGBUILD'
-alias ll="ls -lahF --group-directories-first"
+aliasls='ls -vph --group-directories-first --time-style="+%F, %T  "'
+alias ll='ls -lahF --group-directories-first --time-style="+%F, %T  "'
 
 # Force tmux to use 256 colors
-alias tmux="tmux -2"
+alias tmux='tmux -2'
+
+# always use 'less' instead of 'more'
+alias more=less
 
 # Allow the use of aliases with sudo
 alias sudo='sudo '
@@ -37,6 +44,7 @@ shopt -s histappend
 
 # Use vim as default editor
 export EDITOR=vim
+export VISUAL="$EDITOR"
 
 # Don't write duplicates or lines starting with spaces in the history
 HISTCONTROL=ignoreboth
@@ -67,10 +75,12 @@ if ${use_color} ; then
     fi
   fi
 
-  alias ls='ls --color=auto'
-  alias grep='grep --colour=auto'
-  alias egrep='egrep --colour=auto'
-  alias fgrep='fgrep --colour=auto'
+  alias ls="$aliasls --color=auto"
+  alias grep="grep --colour=auto"
+  alias egrep="egrep --colour=auto"
+  alias fgrep="fgrep --colour=auto"
+else
+  alias ls="$aliasls"
 fi
 
 # Dynamically generated ps1 prompt
@@ -168,6 +178,24 @@ unset use_color safe_term match_lhs sh
 
 # better yaourt colors
 export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+
+# better ls colors
+export LS_COLORS="no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.svgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:"
+
+# psgrep - get "ps aux" list, and grep-filter it by process name
+# usage: psgrep <process name>
+psgrep ()
+{
+  ps aux | grep "$1" | grep -v "grep"
+}
+
+# mkcd - make directory and enter it
+# usage: mkcd <directory>
+mkcd ()
+{
+  mkdir -p "$1"
+  cd "$1"
+}
 
 # ex - archive extractor
 # usage: ex <file>
