@@ -27,8 +27,8 @@ alias df='df -h' # h = human-readable sizes
 alias free='free -m' # m = show sizes in MB
 alias tgz='tar -pczf' # p = preserve permissions, c = create archive, z = gzip , f = file=...
 alias np='nano -w PKGBUILD'
-aliasls='ls -vph --group-directories-first --time-style="+%F, %T  "'
-alias ll='ls -lahF --group-directories-first --time-style="+%F, %T  "'
+aliasls='ls -vph --group-directories-first --time-style="+%F %T  "'
+alias ll='ls -lahF --group-directories-first --time-style="+%F %T  "'
 
 # Force tmux to use 256 colors
 alias tmux='tmux -2'
