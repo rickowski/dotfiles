@@ -52,6 +52,8 @@ set number
 set relativenumber
 " Highlight the current line
 set cursorline
+" Use another colorscheme
+colorscheme desert
 
 
 """ Key mappings
