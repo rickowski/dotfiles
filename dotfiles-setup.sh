@@ -8,6 +8,13 @@ if ! which git > /dev/null 2>&1 ; then
   exit 1
 fi
 
+# Check if git is available
+if ! which vim > /dev/null 2>&1 ; then
+  echo -e "\nThis script is intended for the vim modifications."
+  echo -e "Please install vim and try again!\n"
+  exit 1
+fi
+
 # Install vim plugin Vundle
 echo -e "Installing vim plugin: Vundle ...\n"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
