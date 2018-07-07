@@ -1,4 +1,4 @@
-# https://github.com/rickowski/linux-home-configs
+# https://github.com/rickowski/dotfiles
 
 # This configuration file originates from the Manjaro Linux distribution.
 # It is modified and tweaked.

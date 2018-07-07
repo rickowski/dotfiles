@@ -1,4 +1,4 @@
-# https://github.com/rickowski/linux-home-configs
+# https://github.com/rickowski/dotfiles
 # ~/.bash_profile
 
 # Source the .bashrc

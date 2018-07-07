@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# https://github.com/rickowski/linux-home-configs
+# https://github.com/rickowski/dotfiles
 
 # Check if git is available
 if ! which git > /dev/null 2>&1 ; then
