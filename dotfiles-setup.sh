@@ -11,5 +11,13 @@ fi
 # Install vim plugin Vundle
 echo -e "Installing vim plugin: Vundle ...\n"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-echo -e "\nDone! Please run :PluginInstall inside vim!"
 
+echo -e "\nInstalling vim plugins ...\n"
+vim +PluginInstall -qall
+
+echo -e "Plugins installed!\n"
+echo "For the vim Plugin you need to install the following packages (or"
+echo "the equivalent for your distribution):"
+echo -e "\tbuild-essential cmake python-dev python3-dev"
+echo -e "\nFinally compile YouCompleteMe:"
+echo -e "\t~/.vim/bundle/YouCompleteMe/install.py --clang-completer"
