@@ -1,4 +1,4 @@
-# linux-home-configs
+# dotfiles
 
 Here is how to clone this repository in your non empty home folder. This also works if files already exist (they will be overwritten!!!):
 
