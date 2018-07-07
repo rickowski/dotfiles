@@ -9,3 +9,8 @@ git remote add origin https://github.com/rickowski/linux-home-configs.git
 git fetch
 git checkout -t origin/master -f
 ```
+
+After that execute the setup script and follow the instructions:
+```
+./dotfiles-setup.sh
+```
