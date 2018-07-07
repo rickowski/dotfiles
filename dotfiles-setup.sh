@@ -19,12 +19,17 @@ fi
 echo -e "Installing vim plugin: Vundle ...\n"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-echo -e "\nInstalling vim plugins ...\n"
-vim +PluginInstall -qall
+echo -e "\nInstalling vim plugins ..."
+echo -e "\tWait until completed and then exit vim!"
+sleep 10
+vim +PluginInstall
 
-echo -e "Plugins installed!\n"
-echo "For the vim Plugin you need to install the following packages (or"
-echo "the equivalent for your distribution):"
+echo -e "\nPlugins installed!\n"
+
+echo -e "\n###########################################################"
+echo "For the YouCompleteMe plugin you need to install the following"
+echo "packages (or the equivalent for your distribution):"
 echo -e "\tbuild-essential cmake python-dev python3-dev"
 echo -e "\nFinally compile YouCompleteMe:"
 echo -e "\t~/.vim/bundle/YouCompleteMe/install.py --clang-completer"
+echo "###########################################################"
