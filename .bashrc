@@ -26,7 +26,7 @@ alias cp='cp -aiv' # a = archive mode, i = interactive (confirm before overwriti
 alias df='df -h' # h = human-readable sizes
 alias free='free -m' # m = show sizes in MB
 alias tgz='tar -pczf' # p = preserve permissions, c = create archive, z = gzip , f = file=...
-aliasls='ls -vph --group-directories-first --time-style="+%F %T  "'
+alias ls='ls -vph --group-directories-first --time-style="+%F %T  " --color=auto'
 alias ll='ls -lahF --group-directories-first --time-style="+%F %T  "'
 
 # Force tmux to use 256 colors
@@ -45,9 +45,6 @@ export VISUAL="$EDITOR"
 # Don't write duplicates or lines starting with spaces in the history
 HISTCONTROL=ignoreboth
 
-use_color=false
-
-# Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
 # instead of using /etc/DIR_COLORS.  Try to use the external file
 # first to take advantage of user additions.  Use internal bash
@@ -59,25 +56,20 @@ match_lhs=""
 [[ -z ${match_lhs} ]] \
   && type -P dircolors > /dev/null \
   && match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]]
 
-if ${use_color} ; then
-  # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-  if type -P dircolors >/dev/null ; then
-    if [[ -f ~/.dir_colors ]] ; then
-      eval $(dircolors -b ~/.dir_colors)
-    elif [[ -f /etc/DIR_COLORS ]] ; then
-      eval $(dircolors -b /etc/DIR_COLORS)
-    fi
+# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+if type -P dircolors >/dev/null ; then
+  if [[ -f ~/.dir_colors ]] ; then
+    eval $(dircolors -b ~/.dir_colors)
+  elif [[ -f /etc/DIR_COLORS ]] ; then
+    eval $(dircolors -b /etc/DIR_COLORS)
   fi
-
-  alias ls="$aliasls --color=auto"
-  alias grep="grep --colour=auto"
-  alias egrep="egrep --colour=auto"
-  alias fgrep="fgrep --colour=auto"
-else
-  alias ls="$aliasls"
 fi
+
+alias grep="grep --colour=auto"
+alias egrep="egrep --colour=auto"
+alias fgrep="fgrep --colour=auto"
 
 # Dynamically generated ps1 prompt
 # See here for details: https://wiki.archlinux.org/index.php/Bash/Prompt_customization
@@ -97,70 +89,56 @@ create_ps1() {
       ;;
   esac
 
-  if ${use_color} ; then
-    local cCLEAR='\[\e[0m\]'
-    local cBOLD='\[\e[1m\]'
-    local cGRAY='\[\e[38;5;239m\]'
-    local cGRAYLIGHT='\[\e[38;5;244m\]'
-    local cRED='\[\e[0;31m\]'
-    local cPURPLE='\[\e[38;5;197m\]'
-    local cBLUELIGHT='\[\e[38;5;109m\]'
-    local cBLUE='\[\e[38;5;69m\]'
-    local cGREEN='\[\e[38;5;40m\]'
+  local cCLEAR='\[\e[0m\]'
+  local cBOLD='\[\e[1m\]'
+  local cGRAY='\[\e[38;5;239m\]'
+  local cGRAYLIGHT='\[\e[38;5;244m\]'
+  local cRED='\[\e[0;31m\]'
+  local cPURPLE='\[\e[38;5;197m\]'
+  local cBLUELIGHT='\[\e[38;5;109m\]'
+  local cBLUE='\[\e[38;5;69m\]'
+  local cGREEN='\[\e[38;5;40m\]'
 
-    # Conditional color
-    if [[ ${EUID} == 0 ]]; then
-      local cCOND="${cRED}"
-      local cCONDALT="${cPURPLE}"
-    else
-      local cCOND="${cBLUE}"
-      local cCONDALT="${cBLUELIGHT}"
-    fi
-
-    ### Put the PS1 together
-    # Exit code
-    if [[ ${EXIT} != 0 ]]; then
-      PS1+="${cBOLD}${cRED}[${EXIT}]${cCLEAR} "
-    fi
-    # Username
-    PS1+="${cGRAY}[${cCOND}\u${cGRAY}]"
-    # @-sign
-    PS1+="${cGRAYLIGHT}@"
-    # Hostname
-    PS1+="${cGRAY}[${cCOND}\h${cGRAY}] "
-    # Folder
-    PS1+="${cGRAY}[${cCONDALT}\w${cGRAY}] "
-    # Git
-    # Get name of git branch
-    BRANCHNAME="$(git branch 2> /dev/null | grep '^*' | awk '{print $2}')"
-    if [[ ! -z ${BRANCHNAME} ]]; then # If branch name available
-      # Check if changes are made and adjust color accordingly
-      if LC_ALL=C git status | grep "nothing to commit" > /dev/null 2>&1 ; then
-        local cGIT="${cGREEN}"
-      else
-        local cGIT="${cRED}"
-      fi
-      PS1+="${cGIT}(${BRANCHNAME}) "
-    fi
-    # Last character ($/#)
-    PS1+="${cCOND}\\$ ${cCLEAR}"
-    ### Finished setting PS1
+  # Conditional color
+  if [[ ${EUID} == 0 ]]; then
+    local cCOND="${cRED}"
+    local cCONDALT="${cPURPLE}"
   else
-    # If colors are not available
-    if [[ ${EXIT} != 0 ]]; then
-      PS1+="[${EXIT}] "
-    fi
-
-    BRANCHNAME="$(git branch 2> /dev/null | grep '^*' | awk '{print $2}')"
-    if [[ ! -z ${BRANCHNAME} ]]; then # If branch name available
-      PS1+="[\u]@[\h] [\w] (${BRANCHNAME}) \\$ "
-    else
-      PS1+="[\u]@[\h] [\w] \\$ "
-    fi
+    local cCOND="${cBLUE}"
+    local cCONDALT="${cBLUELIGHT}"
   fi
+
+  ### Put the PS1 together
+  # Exit code
+  if [[ ${EXIT} != 0 ]]; then
+    PS1+="${cBOLD}${cRED}[${EXIT}]${cCLEAR} "
+  fi
+  # Username
+  PS1+="${cGRAY}[${cCOND}\u${cGRAY}]"
+  # @-sign
+  PS1+="${cGRAYLIGHT}@"
+  # Hostname
+  PS1+="${cGRAY}[${cCOND}\h${cGRAY}] "
+  # Folder
+  PS1+="${cGRAY}[${cCONDALT}\w${cGRAY}] "
+  # Git
+  # Get name of git branch
+  BRANCHNAME="$(git branch 2> /dev/null | grep '^*' | awk '{print $2}')"
+  if [[ ! -z ${BRANCHNAME} ]]; then # If branch name available
+    # Check if changes are made and adjust color accordingly
+    if LC_ALL=C git status | grep "nothing to commit" > /dev/null 2>&1 ; then
+      local cGIT="${cGREEN}"
+    else
+      local cGIT="${cRED}"
+    fi
+    PS1+="${cGIT}(${BRANCHNAME}) "
+  fi
+  # Last character ($/#)
+  PS1+="${cCOND}\\$ ${cCLEAR}"
+  ### Finished setting PS1
 }
 
-unset use_color safe_term match_lhs sh
+unset safe_term match_lhs sh
 
 # better ls colors
 export LS_COLORS="no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.svgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:"
