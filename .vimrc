@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 Plugin 'scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'jnurmine/Zenburn'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -54,8 +55,9 @@ set number
 set relativenumber
 " Highlight the current line
 set cursorline
-" Use another colorscheme
-colorscheme desert
+" Use zenburn colorscheme
+set t_Co=256
+colorscheme zenburn
 
 
 """ Key mappings
