@@ -22,6 +22,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'jnurmine/Zenburn'
+Plugin 'tmhedberg/SimpylFold'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,6 +70,9 @@ nnoremap <F8> :set list!<CR>
 nnoremap <F9> :set relativenumber!<CR>
 " F10: Toggle line numbers
 nnoremap <F10> :set number!<CR>
+
+""" Folding
+set foldlevel=99
 
 
 " Formatting options for python
