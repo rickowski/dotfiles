@@ -57,6 +57,7 @@ set relativenumber
 " Highlight the current line
 set cursorline
 " Use zenburn colorscheme
+syntax on
 set t_Co=256
 colorscheme zenburn
 
