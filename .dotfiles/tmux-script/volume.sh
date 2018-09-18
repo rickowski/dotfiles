@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://github.com/rickowski/dotfiles
+# https://gitlab.com/rickowski/dotfiles.git
 
 # Show master volume?
 if [ ${SHOW_VOLUME} -eq 0 ]; then

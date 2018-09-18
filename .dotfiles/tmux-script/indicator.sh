@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://github.com/rickowski/dotfiles
+# https://gitlab.com/rickowski/dotfiles.git
 
 # Use emojis?
 if [ $USE_EMOJI -eq 1 ]; then
