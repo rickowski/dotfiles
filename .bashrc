@@ -1,4 +1,4 @@
-# https://github.com/rickowski/dotfiles
+# https://gitlab.com/rickowski/dotfiles.git
 
 # This configuration file originates from the Manjaro Linux distribution.
 # It is modified and tweaked.
