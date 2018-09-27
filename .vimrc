@@ -60,6 +60,7 @@ set cursorline
 " Use zenburn colorscheme
 syntax on
 set t_Co=256
+set t_ut=
 colorscheme zenburn
 
 
