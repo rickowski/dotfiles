@@ -28,6 +28,8 @@ alias free='free -m' # m = show sizes in MB
 alias tgz='tar -pczf' # p = preserve permissions, c = create archive, z = gzip , f = file=...
 alias ls='ls -vph --group-directories-first --time-style="+%F %T  " --color=auto'
 alias ll='ls -lahF --group-directories-first --time-style="+%F %T  "'
+# Detach home dir and dotfiles repo
+alias dgit='git --git-dir ~/.dotfiles/.git --work-tree=$HOME'
 
 # Force tmux to use 256 colors
 alias tmux='tmux -2'
