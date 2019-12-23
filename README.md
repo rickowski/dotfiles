@@ -5,7 +5,7 @@ Here is how to clone this repository in your non empty home folder. This also wo
 ```
 cd ~
 git init
-git remote add origin https://gitlab.com/rickowski/dotfiles.git
+git remote add origin https://git.rickowski.de/rickowski/dotfiles.git
 git fetch
 git checkout -t origin/master -f
 ```
