@@ -1,16 +1,6 @@
 #!/bin/bash
 # https://gitlab.com/rickowski/dotfiles.git
 
-# Show master volume?
-if [ ${SHOW_VOLUME} -eq 0 ]; then
-  exit 0
-fi
-
-# Use emojis?
-if [ ${USE_EMOJI} -eq 1 ]; then
-  iVol="📢"
-else
-  iVol="♫"
-fi
+iVol="♫"
 
 echo " ${iVol}$(amixer get Master | grep -m1 -o -e [0-9]*%) ${SEP_RIGHT}"
