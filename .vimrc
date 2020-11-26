@@ -1,4 +1,4 @@
-" https://github.com/rickowski/dotfiles
+" https://git.rickowski.de/rickowski/dotfiles
 
 """
 """ In order for this config file to work, the plugin
@@ -20,10 +20,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'jnurmine/Zenburn'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'PProvost/vim-ps1'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

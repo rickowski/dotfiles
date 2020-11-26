@@ -1,4 +1,1 @@
-# Keep git status clean
-# Add files with git add -f <file>
-*
-
+backup/*
