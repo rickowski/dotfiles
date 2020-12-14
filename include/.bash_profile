@@ -1,4 +1,4 @@
-# https://gitlab.com/rickowski/dotfiles.git
+# https://git.rickowski.de/rickowski/dotfiles.git
 # ~/.bash_profile
 
 # Source the .bashrc
