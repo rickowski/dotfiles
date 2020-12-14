@@ -45,7 +45,7 @@ let g:termdebug_wide=1
 """ Visibility options
 " Make invisible characters visible
 set list
-set listchars=tab:>\ ,trail:+,space:
+set listchars=tab:>\ ,trail:+
 " Display line numbers
 set number
 " Use relative line numbers for better navigation
