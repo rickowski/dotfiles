@@ -2,6 +2,8 @@
 # https://git.rickowski.de/rickowski/dotfiles
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null 2>&1 && pwd )"
+LNBACKUP="FALSE"
+LNFLAGS="-sfvT"
 
 if ! which git > /dev/null 2>&1 ; then
   echo -e "\nCouldn't find git. Please install this dependency first!\n"
@@ -19,37 +21,51 @@ function install_vim_plugins() {
   git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 }
 
+function set_ln_flags() {
+  if [ "${LNBACKUP}" = "FALSE" ]; then
+    LNFLAGS="-sfvT"
+  else
+    LNFLAGS="-sfbvT"
+  fi
+
+}
+
 function copy_dotfiles_desktop() {
-  echo -e "\nCopying desktop dotfiles to home directory ${HOME}/ ..."
-  /usr/bin/cp "${SCRIPTDIR}/include/.Xmodmap" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.bashrc" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.bash_profile" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.profile" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.vimrc" "${HOME}/"
-  /usr/bin/cp -a "${SCRIPTDIR}/include/.dotfiles" "${HOME}/"
+  set_ln_flags
+
+  echo -e "\nCreating symlinks for desktop dotfiles to home directory: ${HOME}/ ..."
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.Xmodmap" "${HOME}/.Xmodmap"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bashrc" "${HOME}/.bashrc"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bash_profile" "${HOME}/.bash_profile"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.profile" "${HOME}/.profile"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/.tmux.conf"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc" "${HOME}/.vimrc"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.dotfiles" "${HOME}/.dotfiles"
 }
 
 function copy_dotfiles_server() {
-  echo -e "\nCopying server dotfiles to home directory ${HOME}/ ..."
-  /usr/bin/cp "${SCRIPTDIR}/include/.bashrc" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.bash_profile" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.profile" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/"
-  /usr/bin/cp "${SCRIPTDIR}/include/.vimrc" "${HOME}/"
-  /usr/bin/cp -a "${SCRIPTDIR}/include/.dotfiles" "${HOME}/"
+  set_ln_flags
+
+  echo -e "\nCreating symlinks for server dotfiles to home directory: ${HOME}/ ..."
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bashrc" "${HOME}/.bashrc"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bash_profile" "${HOME}/.bash_profile"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.profile" "${HOME}/.profile"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/.tmux.conf"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc" "${HOME}/.vimrc"
+  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.dotfiles" "${HOME}/.dotfiles"
 }
 
-while true
-do
+while true; do
+  confirm_continue=true
   clear
   echo "Dotfiles setup script"
   echo "#####################"
   echo -e "\nMenu"
   echo "----"
-  echo "(Keep in mind that existing files will be overwritten)"
   echo "1: Install everything (desktop)"
   echo "2: Install everything (server)"
+  echo -e "\nb: Use -b flag with ln: ${LNBACKUP} "
+  echo -e "   (creates backup before overwriting with symlink)"
   echo -e "\nq: Quit\n"
 
   read -p "Choice: " choice
@@ -62,11 +78,21 @@ do
       install_vim_plugins
       copy_dotfiles_server
       ;;
+    b)
+      if [ "${LNBACKUP}" = "FALSE" ]; then
+        LNBACKUP="TRUE"
+      else
+        LNBACKUP="FALSE"
+      fi
+      confirm_continue=false
+      ;;
     q)
       break
       ;;
   esac
 
-  echo ""
-  read -p "Enter to continue ..."
+  if [ ${confirm_continue} = true ]; then
+    echo ""
+    read -p "Enter to continue ..."
+  fi
 done

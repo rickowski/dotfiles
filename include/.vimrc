@@ -43,6 +43,8 @@ filetype plugin indent on    " required
 " YouCompleteMe: Close preview window automatically
 let g:ycm_autoclose_preview_window_after_completion=1
 
+let g:termdebug_wide=1
+
 
 """ Visibility options
 " Make invisible characters visible
@@ -80,7 +82,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=79 |
+    \ set colorcolumn=80 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
@@ -90,7 +92,15 @@ au BufNewFile,BufRead *.sh,.bashrc
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
-    \ set textwidth=79 |
+    \ set colorcolumn=80 |
     \ set expandtab |
     \ set autoindent |
 
+" Formatting options for c++
+au BufNewFile,BufRead *.cc,*.cpp,*.cp,*.c,*.h
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set colorcolumn=100 |
+    \ set expandtab |
+    \ set autoindent
