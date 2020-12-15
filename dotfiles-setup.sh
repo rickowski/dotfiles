@@ -50,18 +50,18 @@ function install_dotfiles() {
   # Conditional dotfiles
   echo -e "\nCreating symlinks for dotfiles to home directory: ${HOME}/ ..."
   if [ "${INSTALLTYPE}" = "DESKTOP" ]; then
-    /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.Xmodmap" "${HOME}/.Xmodmap"
-    /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc" "${HOME}/.vimrc"
+    ln ${LNFLAGS} "${SCRIPTDIR}/include/.Xmodmap" "${HOME}/.Xmodmap"
+    ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc" "${HOME}/.vimrc"
   elif [ "${INSTALLTYPE}" = "SERVER" ]; then
-    /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc.server" "${HOME}/.vimrc"
+    ln ${LNFLAGS} "${SCRIPTDIR}/include/.vimrc.server" "${HOME}/.vimrc"
   fi
 
   # Install everywhere
-  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bashrc" "${HOME}/.bashrc"
-  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.bash_profile" "${HOME}/.bash_profile"
-  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.profile" "${HOME}/.profile"
-  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/.tmux.conf"
-  /usr/bin/ln ${LNFLAGS} "${SCRIPTDIR}/include/.dotfiles" "${HOME}/.dotfiles"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.bashrc" "${HOME}/.bashrc"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.bash_profile" "${HOME}/.bash_profile"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.profile" "${HOME}/.profile"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/.tmux.conf"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.dotfiles" "${HOME}/.dotfiles"
 }
 
 function install_everything() {
