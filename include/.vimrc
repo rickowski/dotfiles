@@ -57,11 +57,16 @@ set number
 set relativenumber
 " Highlight the current line
 set cursorline
+
 " Use zenburn colorscheme
 syntax on
 set t_Co=256
 set t_ut=
 colorscheme zenburn
+" ... with modifications to better fit with tmux colors
+highlight Normal ctermbg=234
+highlight CursorLine ctermbg=235
+highlight Visual ctermbg=237
 
 
 """ Key mappings
