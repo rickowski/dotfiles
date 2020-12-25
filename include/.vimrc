@@ -66,6 +66,7 @@ colorscheme zenburn
 " ... with modifications to better fit with tmux colors
 highlight Normal ctermbg=234
 highlight CursorLine ctermbg=235
+highlight ColorColumn ctermbg=235
 highlight Visual ctermbg=237
 
 
