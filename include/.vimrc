@@ -73,7 +73,9 @@ highlight Visual ctermbg=237
 """ Key mappings
 " F4: Remove all trailing spaces
 nnoremap <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-" F8:Toggle invisibles
+" F5: Toggle NERDTree
+nnoremap <F5> :NERDTreeToggle<CR>
+" F8: Toggle invisibles
 nnoremap <F8> :set list!<CR>
 " F9: Toggle relative line numbers
 nnoremap <F9> :set relativenumber!<CR>
