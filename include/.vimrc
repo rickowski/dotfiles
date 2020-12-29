@@ -68,6 +68,8 @@ highlight Normal ctermbg=234
 highlight CursorLine ctermbg=235
 highlight ColorColumn ctermbg=235
 highlight Visual ctermbg=237
+highlight SignColumn ctermbg=234
+highlight YcmErrorSign ctermbg=234 ctermfg=9
 
 
 """ Key mappings
