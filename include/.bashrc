@@ -107,14 +107,14 @@ create_ps1() {
   ### Put the PS1 together
   # Exit code
   if [[ ${EXIT} != 0 ]]; then
-    PS1+="${cBOLD}${cRED}[${EXIT}]${cCLEAR} "
+    PS1+="${cBOLD}${cRED}[${EXIT}]${cCLEAR}"
   fi
   # Username
   PS1+="${cGRAY}[${cCOND}\u${cGRAY}]"
   # @-sign
   PS1+="${cGRAYLIGHT}@"
   # Hostname
-  PS1+="${cGRAY}[${cCOND}\h${cGRAY}] "
+  PS1+="${cGRAY}[${cCOND}\h${cGRAY}]"
   # Folder
   PS1+="${cGRAY}[${cCONDALT}\w${cGRAY}] "
   # Git
