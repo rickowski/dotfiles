@@ -43,7 +43,10 @@ filetype plugin indent on    " required
 
 " YouCompleteMe: Close preview window automatically
 let g:ycm_autoclose_preview_window_after_completion=1
+" YouCompleteMe: Don't automatically add #include lines
+let g:ycm_clangd_args = [ '--header-insertion=never' ]
 
+" Vertical split for TermDebug
 let g:termdebug_wide=1
 
 
