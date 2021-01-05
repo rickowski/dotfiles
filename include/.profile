@@ -5,5 +5,10 @@
 
 # Append $HOME/bin to PATH if it exists
 if [ -d "$HOME/bin" ]; then
-	export PATH="${PATH}:$HOME/bin"
+	export PATH="$HOME/bin:${PATH}"
+fi
+
+# Append $HOME/.local/bin to PATH if it exists
+if [ -d "$HOME/.local/bin" ]; then
+	export PATH="$HOME/.local/bin:${PATH}"
 fi
