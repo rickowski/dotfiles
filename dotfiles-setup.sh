@@ -61,7 +61,7 @@ function install_dotfiles() {
   ln ${LNFLAGS} "${SCRIPTDIR}/include/.bash_profile" "${HOME}/.bash_profile"
   ln ${LNFLAGS} "${SCRIPTDIR}/include/.profile" "${HOME}/.profile"
   ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.conf" "${HOME}/.tmux.conf"
-  ln ${LNFLAGS} "${SCRIPTDIR}/include/.dotfiles" "${HOME}/.dotfiles"
+  ln ${LNFLAGS} "${SCRIPTDIR}/include/.tmux.d" "${HOME}/.tmux.d"
 }
 
 function install_everything() {
