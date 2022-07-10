@@ -22,6 +22,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jnurmine/Zenburn'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'Yggdroot/indentLine'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -60,6 +62,8 @@ set number
 set relativenumber
 " Highlight the current line
 set cursorline
+" identLine: Ident lines
+let g:indentLine_char = '|'
 
 " Use zenburn colorscheme
 syntax on
@@ -90,7 +94,6 @@ nnoremap <F10> :set number!<CR>
 """ Folding
 set foldlevel=99
 
-
 " Formatting options for python
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -111,7 +114,7 @@ au BufNewFile,BufRead *.sh,.bashrc
     \ set autoindent |
 
 " Formatting options for c++
-au BufNewFile,BufRead *.cc,*.cpp,*.cp,*.c,*.h
+au BufNewFile,BufRead *.cc,*.cpp,*.cp,*.c,*.h,*.hpp
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
