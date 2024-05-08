@@ -1,5 +1,3 @@
-# https://git.rickowski.de/rickowski/dotfiles.git
-
 # This configuration file originates from the Manjaro Linux distribution.
 # It is modified and tweaked.
 

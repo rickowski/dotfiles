@@ -1,11 +1,4 @@
 # dotfiles
 
-```
-cd ~
-git clone https://git.rickowski.de/rickowski/dotfiles.git
-```
+Clone repo in home directory and run dotfiles-setup.sh
 
-After that install dotfiles and more related stuff:
-```
-./dotfiles-setup.sh
-```

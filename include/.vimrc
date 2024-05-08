@@ -1,5 +1,3 @@
-" https://git.rickowski.de/rickowski/dotfiles
-
 """
 """ In order for this config file to work, the plugin
 """ Vundle needs to be installed:
